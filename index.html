@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Interactive rating component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap");
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+        color: white;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      body {
+        margin: 0 0;
+        padding: 0 0;
+        background-color: black;
+        height: 100vh;
+        width: 100%;
+        font-size: 15px;
+        font-family: "Overpass", sans-serif;
+      }
+      .wrapper {
+        display: block;
+        height: 350px;
+        width: 350px;
+        background-color: hsl(216, 12%, 8%);
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 20px;
+        padding: 2em;
+      }
+
+      .circle {
+        background-color: hsl(213, 19%, 18%);
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 1em;
+        border: none;
+      }
+      .action {
+        border: none;
+        background: transparent;
+        color: hsl(217, 12%, 63%);
+      }
+      .selected {
+        background-color: hsl(25, 97%, 53%);
+        color: white;
+      }
+      .selected > button {
+        color: white;
+      }
+      .circle:hover,
+      .action:hover {
+        background-color: hsl(25, 97%, 53%);
+        cursor: pointer;
+      }
+      #submit:hover {
+        cursor: pointer;
+      }
+      .before {
+        display: none;
+      }
+      .after {
+        display: flex;
+      }
+      #thankyou {
+        color: hsl(25, 97%, 53%);
+        padding: 10px;
+        margin-top: 0.5em;
+        background-color: hsl(213, 19%, 18%);
+        border-radius: 25%;
+      }
+      @media (max-width: 650px) {
+        .wrapper {
+          padding: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="before">
+        <div class="circle">
+          <img style="width: 100%" src="./images/icon-star.svg" alt="star" />
+        </div>
+        <div style="margin-top: 3em">
+          <h1 style="color: hsl(0, 0%, 100%)">How did we do?</h1>
+          <p style="color: hsl(217, 12%, 63%)">
+            Please let us know how we did with your support request. All
+            feedback is appreciated to help us improve our offering!
+          </p>
+        </div>
+        <div style="margin-top: 2em">
+          <ul
+            class="select-option"
+            style="
+              list-style: none;
+              display: flex;
+              justify-content: space-evenly;
+              margin: 0 0;
+              padding: 0 0;
+              color: hsl(217, 12%, 63%);
+              width: 100%;
+            "
+          >
+            <li class="circle selected" value="1">
+              <button class="action">1</button>
+            </li>
+            <li class="circle" value="2">
+              <button class="action">2</button>
+            </li>
+            <li class="circle" value="3">
+              <button class="action">3</button>
+            </li>
+            <li class="circle" value="4">
+              <button class="action">4</button>
+            </li>
+            <li class="circle" value="5">
+              <button class="action">5</button>
+            </li>
+          </ul>
+        </div>
+        <button
+          id="submit"
+          style="
+            border: none;
+            background-color: hsl(25, 97%, 53%);
+            width: 100%;
+            margin-top: 3em;
+            padding: 1em;
+            border-radius: 25px;
+            color: hsl(0, 0%, 100%);
+            letter-spacing: 2px;
+          "
+        >
+          SUBMIT
+        </button>
+      </div>
+      <div
+        id="after"
+        class="after"
+        style="
+          display: none;
+          flex-direction: column;
+          gap: 0.4em;
+          justify-content: center;
+          align-items: center;
+          color: white;
+        "
+      >
+        <img
+          width="200px"
+          src="./images/illustration-thank-you.svg"
+          alt="illustration"
+        />
+        <div style="margin-top: 30px" id="thankyou"></div>
+        <h1 style="margin: 25px 0px 0px 0px">Thank you!</h1>
+        <p>
+          We appreciate you taking the time to give a rating. If you ever need
+          more support, don’t hesitate to get in touch!
+        </p>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="https://github.com/Faycal88">MERABET Faycal</a>.
+    </div>
+  </body>
+  <script>
+    var star = 1;
+    function select(item) {
+      document
+        .querySelector("ul.select-option li.selected")
+        .classList.remove("selected");
+      const s = document.querySelectorAll("[value]");
+      s.forEach((e) => {
+        if (e.value === item) {
+          e.classList.add("selected");
+          star = e.value;
+        }
+      });
+    }
+    var selected = document.querySelectorAll("[value]");
+    selected.forEach((element) => {
+      element.addEventListener("click", (e) => {
+        if (element) {
+          select(element.value);
+        }
+      });
+    });
+
+    var validate = document.getElementById("submit");
+    validate.addEventListener("click", () => {
+      const sp1 = document.createElement("span");
+      sp1.id = "newspan";
+      const sp1_content = document.createTextNode(
+        `You selected ${star} out of 5`
+      );
+      sp1.appendChild(sp1_content);
+      if (validate) {
+        const obj = document.querySelector("ul.select-option li.selected");
+        document.getElementById("before").classList.add("before");
+        document.getElementById("thankyou").appendChild(sp1);
+        document.getElementById("after").style.display = "flex";
+      }
+    });
+  </script>
+</html>
